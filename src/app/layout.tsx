@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display } from "next/font/google";
 import { Toaster } from "react-hot-toast";
+// Self-hosted fonts (bundled at build time, no Google Fonts download needed)
+import "@fontsource/dm-sans/400.css";
+import "@fontsource/dm-sans/500.css";
+import "@fontsource/dm-sans/600.css";
+import "@fontsource/dm-sans/700.css";
+import "@fontsource/playfair-display/400-italic.css";
+import "@fontsource/playfair-display/500-italic.css";
 import "./globals.scss";
-
-const dmSans = DM_Sans({
-    subsets: ["latin"],
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-dm-sans",
-});
-
-const playfair = Playfair_Display({
-    subsets: ["latin"],
-    weight: ["400", "500"],
-    style: ["italic"],
-    variable: "--font-playfair-display",
-});
 
 export const metadata: Metadata = {
     title: "Olam Group",
@@ -24,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
-            <body className={`ag-body ${dmSans.variable} ${playfair.variable}`}>
+            <body className="ag-body">
                 {children}
                 <Toaster position="bottom-center" />
             </body>

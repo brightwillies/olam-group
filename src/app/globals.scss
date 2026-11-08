@@ -2,7 +2,7 @@
 
 /* Minimal reset, then the site styles */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; --font-dm-sans: "DM Sans"; --font-playfair-display: "Playfair Display"; }
 body { margin: 0; font-family: var(--ag-sans); color: var(--ag-ink); line-height: 1.5; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; overflow-x: hidden; }
 img, svg, video { display: block; max-width: 100%; }
 svg { flex: none; }

@@ -14,7 +14,7 @@ npm run build && npm start
 ```
 src/
   app/
-    layout.tsx            fonts (DM Sans + Playfair Display), global CSS, toasts
+    layout.tsx            fonts (self-hosted via @fontsource: DM Sans + Playfair Display), global CSS, toasts
     globals.scss          reset + imports styles/site.scss
     (site)/layout.tsx     header, footer, preloader, cursor, smooth scroll
     (site)/template.tsx   page-transition curtain
