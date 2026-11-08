@@ -61,9 +61,9 @@ export const mainNav = [
             { label: "Our Leadership", href: "/about#leadership" },
         ],
     },
-    { label: "Our Businesses", href: "/#businesses" },
-    { label: "Sustainability", href: "/#sustainability" },
-    { label: "News", href: "/#news" },
+    // { label: "Our Businesses", href: "/#businesses" },
+    // { label: "Sustainability", href: "/#sustainability" },
+    // { label: "News", href: "/#news" },
     { label: "Contact", href: "/contact" },
 ];
 
