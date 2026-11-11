@@ -5,7 +5,7 @@ import { LeafMark } from "./Icons";
 type Tone = "auto" | "light" | "dark";
 
 /**
- * Olam logo. `tone="light"` = white text (for dark backgrounds), `"dark"` = original colours,
+ * Site logo (image when brand.logo is set, otherwise a text logo). `tone="light"` = white text (for dark backgrounds), `"dark"` = original colours,
  * `"auto"` renders both and lets CSS pick (used in the header, which changes background on scroll).
  */
 const Logo = ({ height = 34, onClick, tone = "dark" }: { height?: number; onClick?: () => void; tone?: Tone }) => {
@@ -22,7 +22,10 @@ const Logo = ({ height = 34, onClick, tone = "dark" }: { height?: number; onClic
             ) : (
                 <>
                     <LeafMark size={height} />
-                    <span>{brand.name}</span>
+                    <span>
+                        {brand.name}
+                        <small>Africa</small>
+                    </span>
                 </>
             )}
         </Link>

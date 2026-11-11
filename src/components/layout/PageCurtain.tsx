@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "../ui/anim";
 import { brand } from "@/data/site-data";
+import { LeafMark } from "../ui/Icons";
 
 let firstMount = true;
 
@@ -20,7 +21,7 @@ const PageCurtain = () => {
     useEffect(() => {
         if (!active || !ref.current) return;
         const tl = gsap.timeline({ delay: 0.45 });
-        tl.to(ref.current.querySelector("img"), { scale: 0.6, autoAlpha: 0, duration: 0.4, ease: "power2.in" })
+        tl.to(ref.current.querySelector("img, svg"), { scale: 0.6, autoAlpha: 0, duration: 0.4, ease: "power2.in" })
             .to(ref.current, { yPercent: -100, duration: 0.9, ease: "expo.inOut" })
             .add(() => {
                 window.__agReady = true;
@@ -33,7 +34,7 @@ const PageCurtain = () => {
     if (gone) return null;
     return createPortal(
         <div className="ag-curtain" ref={ref} aria-hidden="true">
-            <img src={brand.logoMark} alt="" style={{ width: 64, height: 64 }} />
+            {brand.logoMark ? <img src={brand.logoMark} alt="" style={{ width: 64, height: 64 }} /> : <LeafMark size={64} />}
         </div>,
         document.body
     );

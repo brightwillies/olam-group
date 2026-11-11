@@ -6,6 +6,7 @@ import RotatingBadge from "../ui/RotatingBadge";
 import { gsap, ScrollTrigger, onSiteReady, prefersReduced } from "../ui/anim";
 
 const DURATION = 7; // seconds per slide
+const TILE_ROT = [-6, 5, -3]; // resting tilt of the floating product cards
 
 /**
  * Full-screen hero carousel:
@@ -30,7 +31,13 @@ const HomeHero = () => {
         if (!s) return gsap.timeline();
         const tl = gsap.timeline({ delay });
         tl.fromTo(s.querySelectorAll(".ag-hl > span"), { yPercent: 115, rotate: 3 }, { yPercent: 0, rotate: 0, duration: 1.3, ease: "power4.out", stagger: 0.1 })
-            .fromTo(s.querySelectorAll(".ag-hero-anim"), { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out", stagger: 0.1 }, 0.3);
+            .fromTo(s.querySelectorAll(".ag-hero-anim"), { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, ease: "power3.out", stagger: 0.1 }, 0.3)
+            .fromTo(
+                s.querySelectorAll(".ag-hero-tile"),
+                { y: 140, autoAlpha: 0, scale: 0.8, rotate: (k: number) => TILE_ROT[k] * 2.4 },
+                { y: 0, autoAlpha: 1, scale: 1, rotate: (k: number) => TILE_ROT[k], duration: 1.5, ease: "expo.out", stagger: 0.12 },
+                0.35
+            );
         kenBurns.current?.kill();
         kenBurns.current = gsap.fromTo(s.querySelector(".ag-hero-bg img"), { scale: 1.18 }, { scale: 1, duration: DURATION + 2.5, ease: "none" });
         return tl;
@@ -64,7 +71,7 @@ const HomeHero = () => {
         from.classList.remove("is-active");
         from.classList.add("is-leaving");
         gsap.set(to.querySelectorAll(".ag-hl > span"), { yPercent: 115 });
-        gsap.set(to.querySelectorAll(".ag-hero-anim"), { autoAlpha: 0 });
+        gsap.set(to.querySelectorAll(".ag-hero-anim, .ag-hero-tile"), { autoAlpha: 0 });
 
         const tl = gsap.timeline({
             onComplete: () => {
@@ -75,6 +82,7 @@ const HomeHero = () => {
         });
         tl.to(from.querySelectorAll(".ag-hl > span"), { yPercent: -115, duration: 0.7, ease: "power3.in", stagger: 0.05 })
             .to(from.querySelectorAll(".ag-hero-anim"), { autoAlpha: 0, y: -20, duration: 0.5, ease: "power2.in" }, 0)
+            .to(from.querySelectorAll(".ag-hero-tile"), { autoAlpha: 0, y: -90, duration: 0.6, ease: "power2.in", stagger: 0.05 }, 0)
             .fromTo(to, { clipPath: dir > 0 ? "inset(0% 0% 0% 100%)" : "inset(0% 100% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.4, ease: "expo.inOut" }, 0.2)
             .to(from.querySelector(".ag-hero-bg img"), { xPercent: -8 * dir, duration: 1.4, ease: "expo.inOut" }, 0.2)
             .set(from.querySelector(".ag-hero-bg img"), { xPercent: 0 })
@@ -90,10 +98,10 @@ const HomeHero = () => {
         if (!root.current) return;
         const reduce = prefersReduced();
         const ctx = gsap.context(() => {
-            gsap.set(".ag-hero-slide:not(:first-child) .ag-hero-anim", { autoAlpha: 0 });
+            gsap.set(".ag-hero-slide:not(:first-child) .ag-hero-anim, .ag-hero-slide:not(:first-child) .ag-hero-tile", { autoAlpha: 0 });
             if (!reduce) {
                 gsap.set(".ag-hero-slide:first-child .ag-hl > span", { yPercent: 115 });
-                gsap.set(".ag-hero-slide:first-child .ag-hero-anim, .ag-hero-ui, .ag-hero-side", { autoAlpha: 0 });
+                gsap.set(".ag-hero-slide:first-child .ag-hero-anim, .ag-hero-slide:first-child .ag-hero-tile, .ag-hero-ui, .ag-hero-side", { autoAlpha: 0 });
             }
         }, root);
 
@@ -113,11 +121,28 @@ const HomeHero = () => {
                 const st = { trigger: root.current, start: "top top", end: "bottom top", scrub: true };
                 gsap.to(".ag-hero-content", { yPercent: -18, autoAlpha: 0.2, ease: "none", scrollTrigger: st });
                 gsap.to(".ag-hero-bg", { yPercent: 22, ease: "none", scrollTrigger: st });
+                gsap.to(".ag-hero-products", { yPercent: -25, ease: "none", scrollTrigger: st });
             }, root);
             ScrollTrigger.refresh();
         }, 400);
 
+        // product cards drift with the mouse (desktop)
+        const hero = root.current!;
+        const layers = gsap.utils.toArray<HTMLElement>(".ag-hero-tile-depth", hero);
+        const movers = layers.map((l) => ({
+            depth: Number(l.dataset.depth || 1),
+            x: gsap.quickTo(l, "x", { duration: 1.2, ease: "power3.out" }),
+            y: gsap.quickTo(l, "y", { duration: 1.2, ease: "power3.out" }),
+        }));
+        const onMove = (e: MouseEvent) => {
+            const px = e.clientX / window.innerWidth - 0.5;
+            const py = e.clientY / window.innerHeight - 0.5;
+            movers.forEach((m) => { m.x(px * 40 * m.depth); m.y(py * 30 * m.depth); });
+        };
+        if (!reduce) hero.addEventListener("mousemove", onMove);
+
         return () => {
+            hero.removeEventListener("mousemove", onMove);
             off();
             window.clearTimeout(id);
             progress.current?.kill();
@@ -153,6 +178,19 @@ const HomeHero = () => {
                             </div>
                         </div>
                     </div>
+                    <div className="ag-hero-products" aria-hidden="true">
+                        {s.products.map((p, k) => (
+                            <div className={`ag-hero-tile is-${k + 1}`} key={p.id}>
+                                <div className="ag-hero-tile-depth" data-depth={[1.4, 0.8, 1.1][k]}>
+                                    <div className="ag-hero-tile-float">
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img src={p.img} alt="" />
+                                        <span>{p.brand}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             ))}
 
@@ -175,7 +213,7 @@ const HomeHero = () => {
                     {" "}/ 0{heroSlides.length}
                 </div>
                 <div className="ag-scroll-cue" />
-                <RotatingBadge text="Feeding the world • Since 1989 • " href="#intro" size={120} />
+                <RotatingBadge text="Good food • Rooted in Africa • " href="#intro" size={120} />
             </div>
         </section>
     );

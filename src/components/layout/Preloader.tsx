@@ -2,8 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "../ui/anim";
 import { brand } from "@/data/site-data";
+import { LeafMark } from "../ui/Icons";
 
-const WORDS = ["Growing", "Sourcing", "Processing", "Delivering"];
+const WORDS = ["Cooking", "Snacking", "Sharing", "Enjoying"];
 
 /** First-load intro: counter + word ticker, then two panels lift away. */
 const Preloader = () => {
@@ -53,12 +54,19 @@ const Preloader = () => {
             <div className="ag-pre-panel is-forest" />
             <div className="ag-pre-inner">
                 <div className="ag-pre-logo">
-                    <img src={brand.logoWhite} alt={brand.fullName} style={{ height: 56, width: "auto" }} />
+                    {brand.logoWhite || brand.logo ? (
+                        <img src={brand.logoWhite || brand.logo} alt={brand.fullName} style={{ height: 56, width: "auto" }} />
+                    ) : (
+                        <div className="ag-logo" style={{ fontSize: 40 }}>
+                            <LeafMark size={58} />
+                            <span>{brand.name}<small>Africa</small></span>
+                        </div>
+                    )}
                 </div>
                 <div className="ag-pre-bar"><i /></div>
                 <div className="ag-pre-words">
                     <div className="ag-pre-words-track">
-                        {WORDS.map((w) => <span key={w}>{w} the future of food</span>)}
+                        {WORDS.map((w) => <span key={w}>{w} good food, rooted in Africa</span>)}
                     </div>
                 </div>
                 <div className="ag-pre-count">0</div>

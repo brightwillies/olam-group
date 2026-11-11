@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
-import { mainNav } from "@/data/site-data";
+import { mainNav, marketLink } from "@/data/site-data";
 import Logo from "../ui/Logo";
 import AgButton from "../ui/AgButton";
-import { ArrowRight, Caret } from "../ui/Icons";
+import { ArrowRight, ArrowUpRight, Caret } from "../ui/Icons";
 import Menu from "./Menu";
 
 const Header = () => {
@@ -50,15 +50,28 @@ const Header = () => {
                 <div className="ag-container ag-header-inner">
                     <Logo tone="auto" onClick={() => setOpen(false)} />
                     <ul className="ag-nav">
-                        {mainNav.map((item) => (
+                        {mainNav.map((item) => {
+                            const link = item.market ? marketLink(item.market) : { href: item.href, external: false };
+                            return (
                             <li key={item.label}>
-                                <Link href={item.href} className={isActive(item.href) ? "is-active" : ""}>
+                                {link.external ? (
+                                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="is-external">
+                                        <span className="ag-roll">
+                                            <span>{item.label}</span>
+                                            <span aria-hidden="true">{item.label}</span>
+                                        </span>
+                                        <ArrowUpRight size={12} />
+                                    </a>
+                                ) : (
+                                <Link href={link.href} className={isActive(link.href) ? "is-active" : ""}>
                                     <span className="ag-roll">
                                         <span>{item.label}</span>
                                         <span aria-hidden="true">{item.label}</span>
                                     </span>
                                     {item.children && <Caret className="ag-caret" />}
+                                    {item.market && <span className="ag-nav-flag" data-market={item.market} aria-hidden="true" />}
                                 </Link>
+                                )}
                                 {item.children && (
                                     <div className="ag-dropdown">
                                         {item.children.map((c) => (
@@ -70,7 +83,8 @@ const Header = () => {
                                     </div>
                                 )}
                             </li>
-                        ))}
+                            );
+                        })}
                     </ul>
                     <div className="ag-header-actions">
                         <AgButton href="/contact" variant={scrolled && !open ? "dark" : "lime"}>Get in Touch</AgButton>

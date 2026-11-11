@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
-import { brand } from "@/data/site-data";
+import { brand, marketLink } from "@/data/site-data";
 import Logo from "../ui/Logo";
 import AgButton from "../ui/AgButton";
 import { ArrowUpRight, SocialIcon } from "../ui/Icons";
@@ -15,10 +15,10 @@ const company = [
     { label: "Contact", href: "/contact" },
 ];
 const explore = [
-    { label: "Our Businesses", href: "/#businesses" },
-    { label: "Sustainability", href: "/#sustainability" },
-    { label: "Annual Report", href: "/#report" },
-    { label: "Latest News", href: "/#news" },
+    { label: "Our Products", href: "/#products" },
+    { label: "Caraway Ghana", href: marketLink("ghana").href },
+    { label: "Caraway Nigeria", href: marketLink("nigeria").href },
+    { label: "Trade Enquiries", href: "/contact" },
 ];
 
 const Footer = () => {
@@ -52,7 +52,7 @@ const Footer = () => {
                 <div className="ag-footer-grid">
                     <div data-ag-fade="">
                         <div style={{ marginBottom: 22 }}><Logo tone="light" height={40} /></div>
-                        <p style={{ maxWidth: 340, marginBottom: 26 }}>{brand.tagline}. Supplying food, feed and fibre to 11,000+ customers worldwide.</p>
+                        <p style={{ maxWidth: 340, marginBottom: 26 }}>{brand.tagline}. Everyday foods and drinks for Ghana, Nigeria and beyond.</p>
                         <div className="ag-social">
                             {brand.social.map((s) => (
                                 <a key={s.label} href={s.href} aria-label={s.label}><SocialIcon name={s.icon} /></a>
@@ -90,12 +90,12 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="ag-footer-word" aria-hidden="true">
+            <div className="ag-footer-word" aria-hidden="true" style={{ fontSize: `${Math.min(36, 148 / brand.name.length)}vw` }}>
                 {brand.name.split("").map((c, i) => <span key={i}>{c}</span>)}
             </div>
             <div className="ag-container">
                 <div className="ag-footer-bottom">
-                    <span>© {new Date().getFullYear()} {brand.fullName}. All rights reserved. {brand.regNo}</span>
+                    <span>© {new Date().getFullYear()} {brand.fullName}. All rights reserved.{brand.regNo ? ` ${brand.regNo}` : ""}</span>
                     <nav>
                         <a href="#">Privacy Policy</a>
                         <a href="#">Cookie Policy</a>

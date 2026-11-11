@@ -10,8 +10,8 @@ import "@fontsource/playfair-display/500-italic.css";
 import "./globals.scss";
 
 export const metadata: Metadata = {
-    title: "Olam Group",
-    description: "Re-imagining global agriculture and food systems.",
+    title: "Caraway Africa",
+    description: "Good food, rooted in Africa. Everyday foods and drinks for Ghana, Nigeria and beyond.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { SocialIcon } from "../ui/Icons";
 import { gsap } from "../ui/anim";
-import { brand, mainNav } from "@/data/site-data";
+import { brand, mainNav, marketLink } from "@/data/site-data";
 
 /** Full-screen menu that expands as a circle from the burger button. */
 const Menu = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
@@ -34,14 +34,24 @@ const Menu = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
         <div className="ag-menu" ref={ref} aria-hidden={!open}>
             <div className="ag-container ag-menu-inner">
                 <ul className="ag-menu-links">
-                    {mainNav.map((item, i) => (
-                        <li key={item.label}>
-                            <Link href={item.href} onClick={onClose}>
-                                <small>0{i + 1}</small>
-                                {item.label}
-                            </Link>
-                        </li>
-                    ))}
+                    {mainNav.map((item, i) => {
+                        const link = item.market ? marketLink(item.market) : { href: item.href, external: false };
+                        return (
+                            <li key={item.label}>
+                                {link.external ? (
+                                    <a href={link.href} target="_blank" rel="noopener noreferrer" onClick={onClose}>
+                                        <small>0{i + 1}</small>
+                                        {item.label} ↗
+                                    </a>
+                                ) : (
+                                    <Link href={link.href} onClick={onClose}>
+                                        <small>0{i + 1}</small>
+                                        {item.label}
+                                    </Link>
+                                )}
+                            </li>
+                        );
+                    })}
                 </ul>
                 <div className="ag-menu-side">
                     <div>

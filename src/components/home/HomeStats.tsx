@@ -5,13 +5,13 @@ const HomeStats = () => (
         <div className="ag-container">
             <div className="ag-stats-head">
                 <h2 className="ag-h2" data-ag-split="" style={{ maxWidth: 820 }}>
-                    A global network, <em className="ag-lime-text">rooted</em> in every origin
+                    Everyday brands, <em className="ag-lime-text">made</em> for African tables
                 </h2>
                 <p className="ag-lead ag-maxw-560" data-ag-fade="" style={{ maxWidth: 420 }}>
-                    We supply over 11,000 customers — from large multinationals to small family businesses — with food, feed and fibre.
+                    From Accra to Lagos, our brands are part of everyday meals, school snacks and family celebrations.
                 </p>
             </div>
-            <div className="ag-stats-grid">
+            <div className="ag-stats-grid is-3">
                 {stats.map((s) => (
                     <div className="ag-stat" key={s.label} data-ag-fade="">
                         <span className="ag-stat-line" data-ag-line="" />

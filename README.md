@@ -1,4 +1,4 @@
-# Olam Group: Website (Home, About, Contact)
+# Caraway Africa: Website (Home, About, Contact)
 
 Next.js 16 + GSAP. Built from the Aleric theme's Business Consulting style and slimmed down to only
 what these three pages need.
@@ -32,11 +32,14 @@ public/images/            photos (placeholders; replace keeping the same file na
 
 ## Before launch
 - Search `VERIFY` in `src/data/site-data.ts`: emails, office addresses, leadership names/photos,
-  regional country counts, timeline dates and the vision/values wording need confirming with Olam Group.
-- Logo: `public/images/olam-logo.png` (colour), `olam-logo-white.png` (for dark backgrounds) and `olam-mark.png`
-  (leaf, used on the page transition and as the favicon). They are small PNGs; for the sharpest result on
-  high-resolution screens, ask Olam for SVG versions and update the paths in `brand` in `site-data.ts`.
-- Photos are temporary. Swap in Olam photography (farms, cocoa, coffee, people) with the same file names.
+  regional country counts, timeline dates and the vision/values wording need confirming with Caraway Africa.
+- **Country website links:** paste the Ghana and Nigeria URLs into `marketSites` in `src/data/site-data.ts`.
+  While a URL is empty, the navbar link scrolls to that country's section and its button shows "Coming soon".
+  Once set, the navbar, section buttons and footer links open the country site in a new tab.
+- **Logo:** a text logo is used until `brand.logo` / `brand.logoWhite` / `brand.logoMark` are set in `site-data.ts`.
+- **Products:** edit the `products` list in `site-data.ts` (name, brand, category, description, image, markets).
+  Product images live in `public/images/products/`.
+- Photos are temporary. Swap in Caraway photography (farms, cocoa, coffee, people) with the same file names.
 - Contact form: validates and animates but doesn't send yet. Hook it up at the `TODO` in
   `src/components/contact/ContactForm.tsx` (e.g. an API route or form service).
 

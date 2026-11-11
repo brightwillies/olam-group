@@ -9,10 +9,12 @@ type Props = {
     onClick?: () => void;
     className?: string;
     disabled?: boolean;
+    /** Open href in a new tab (for links to other websites). */
+    external?: boolean;
 };
 
 /** Pill button with rolling text + rotating arrow (magnetic via data attribute). */
-const AgButton = ({ href, children, variant = "lime", type = "button", onClick, className = "", disabled }: Props) => {
+const AgButton = ({ href, children, variant = "lime", type = "button", onClick, className = "", disabled, external }: Props) => {
     const cls = `ag-btn ${variant !== "lime" ? `is-${variant}` : ""} ${className}`;
     const inner = (
         <>
@@ -25,6 +27,13 @@ const AgButton = ({ href, children, variant = "lime", type = "button", onClick, 
             </span>
         </>
     );
+    if (href && external) {
+        return (
+            <a href={href} className={cls} target="_blank" rel="noopener noreferrer" data-ag-magnetic="">
+                {inner}
+            </a>
+        );
+    }
     if (href) {
         return (
             <Link href={href} className={cls} data-ag-magnetic="">

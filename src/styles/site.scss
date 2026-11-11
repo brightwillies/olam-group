@@ -1587,3 +1587,301 @@ body.ag-body {
     .is-colour { display: block; }
 }
 .ag-logo { transition: opacity 0.3s; &:hover { opacity: 0.85; } }
+
+/* =====================================================================
+   CARAWAY HOMEPAGE
+   ===================================================================== */
+
+/* nav: external market links + flag dot */
+.ag-nav > li > a.is-external svg { opacity: 0.7; margin-left: -2px; }
+.ag-nav-flag {
+    width: 8px; height: 8px; border-radius: 50%; margin-left: 2px;
+    &[data-market="ghana"] { background: conic-gradient(#ce1126 0 33%, #fcd116 0 66%, #006b3f 0); }
+    &[data-market="nigeria"] { background: linear-gradient(90deg, #008751 0 33%, #fff 0 66%, #008751 0); }
+}
+
+/* hero: narrower title + floating product cards */
+.ag-hero-slide .ag-hero-title { font-size: clamp(44px, 6.4vw, 112px); max-width: 62%; }
+@media (max-width: 1199px) { .ag-hero-slide .ag-hero-title { max-width: 100%; } }
+.ag-hero-products {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 44%;
+    z-index: 3;
+    pointer-events: none;
+    @media (max-width: 1199px) { display: none; }
+}
+.ag-hero-tile {
+    position: absolute;
+    &.is-1 { top: 17%; right: 34%; width: clamp(180px, 15vw, 270px); }
+    &.is-2 { top: 33%; right: 7%; width: clamp(160px, 13vw, 240px); }
+    &.is-3 { top: 57%; right: 29%; width: clamp(150px, 12vw, 220px); }
+}
+.ag-hero-tile-float {
+    position: relative;
+    background: #fff;
+    border-radius: 26px;
+    padding: 14%;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+    animation: ag-float 6s ease-in-out infinite;
+    img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+    span {
+        position: absolute;
+        left: 50%;
+        bottom: -14px;
+        transform: translateX(-50%);
+        background: var(--ag-lime);
+        color: var(--ag-forest);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 14px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+}
+.ag-hero-tile.is-2 .ag-hero-tile-float { animation-delay: -2s; animation-duration: 7s; }
+.ag-hero-tile.is-3 .ag-hero-tile-float { animation-delay: -4s; animation-duration: 5.5s; }
+@keyframes ag-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-16px) rotate(1.5deg); }
+}
+
+/* stats with 3 columns */
+.ag-stats .ag-stats-grid.is-3 { grid-template-columns: repeat(3, 1fr); @media (max-width: 767px) { grid-template-columns: 1fr; } }
+
+/* light tabs (products filter) */
+.ag-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 60px;
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: auto;
+    position: relative;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+    button {
+        all: unset;
+        position: relative;
+        z-index: 1;
+        flex: none;
+        cursor: pointer;
+        padding: 12px 22px;
+        border-radius: 40px;
+        font-weight: 700;
+        font-size: 15px;
+        transition: color 0.4s;
+    }
+    .ag-tab-pill { position: absolute; top: 6px; left: 6px; height: calc(100% - 12px); border-radius: 40px; z-index: 0; }
+    &.is-light {
+        background: #fff;
+        box-shadow: 0 0 0 1px var(--ag-line) inset;
+        button { color: var(--ag-muted); &.is-active { color: #fff; } }
+        .ag-tab-pill { background: var(--ag-forest); }
+    }
+}
+
+/* "coming soon" button */
+.ag-btn.ag-btn-soon {
+    cursor: not-allowed;
+    background: transparent;
+    color: inherit;
+    box-shadow: inset 0 0 0 1.5px currentColor;
+    padding-right: 8px;
+    opacity: 0.9;
+    &::before { display: none; }
+    .ag-soon-chip {
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 16px;
+        border-radius: 40px;
+        background: var(--ag-lime);
+        color: var(--ag-forest);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+}
+
+/* ------------------------------ MARKETS ------------------------------ */
+.ag-market {
+    overflow: hidden;
+    &.is-light { background: var(--ag-sand); }
+    .ag-mk-word {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        font-size: clamp(140px, 24vw, 420px);
+        font-weight: 700;
+        letter-spacing: -0.06em;
+        line-height: 0.8;
+        white-space: nowrap;
+        color: transparent;
+        -webkit-text-stroke: 1.5px rgba(16, 48, 42, 0.1);
+        pointer-events: none;
+        user-select: none;
+    }
+    &.is-dark .ag-mk-word { -webkit-text-stroke-color: rgba(255, 255, 255, 0.07); }
+    .ag-container { position: relative; }
+    .ag-mk-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(40px, 6vw, 110px);
+        align-items: center;
+        @media (max-width: 991px) { grid-template-columns: 1fr; }
+    }
+    &.is-reverse .ag-mk-text { order: 2; @media (max-width: 991px) { order: 0; } }
+    .ag-mk-flag {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 26px;
+        i { display: block; width: 34px; height: 6px; border-radius: 6px; }
+    }
+    &.is-dark .ag-mk-flag i:nth-child(2) { opacity: 0.95; }
+    h2 { margin: 20px 0 24px; }
+    .ag-lead { max-width: 540px; }
+    .ag-mk-features {
+        list-style: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 30px;
+        margin: 40px 0 44px;
+        @media (max-width: 575px) { grid-template-columns: 1fr; }
+        li {
+            display: flex;
+            gap: 16px;
+            padding: 18px 0;
+            border-top: 1px solid var(--ag-line);
+            transition: padding 0.4s var(--ag-ease-out);
+            &:hover { padding-left: 8px; }
+        }
+        b { font-size: 13px; font-weight: 700; color: var(--ag-forest-3); padding-top: 3px; }
+        h5 { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        span { font-size: 15px; color: var(--ag-muted); }
+    }
+    &.is-dark .ag-mk-features {
+        li { border-color: var(--ag-line-light); }
+        b { color: var(--ag-lime); }
+        span { color: rgba(255, 255, 255, 0.6); }
+    }
+    .ag-btn-row { align-items: center; gap: 24px; }
+    &.is-light .ag-link { color: var(--ag-forest); }
+}
+
+.ag-mk-visual {
+    position: relative;
+    aspect-ratio: 1 / 0.95;
+    display: grid;
+    place-items: center;
+    perspective: 1200px;
+    @media (max-width: 575px) { aspect-ratio: 1 / 1.05; }
+}
+.ag-mk-orb {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 60%), linear-gradient(160deg, #f6d36b, #e6a92e);
+    box-shadow: inset 0 -30px 80px rgba(0, 0, 0, 0.12);
+    .is-dark & { background: radial-gradient(circle at 35% 30%, rgba(180, 231, 23, 0.35), rgba(180, 231, 23, 0) 60%), linear-gradient(160deg, #1d5a48, #0f3a30); box-shadow: inset 0 -30px 80px rgba(0, 0, 0, 0.3); }
+}
+.ag-mk-fan {
+    position: relative;
+    width: 42%;
+    aspect-ratio: 1 / 1.18;
+    transform-style: preserve-3d;
+}
+.ag-mk-card {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    border-radius: 26px;
+    padding: 12%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 30px 60px rgba(10, 34, 29, 0.25);
+    img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+    span { font-size: 13px; font-weight: 700; color: var(--ag-forest); }
+    &:nth-child(2) { z-index: 2; }
+}
+.ag-mk-badge {
+    position: absolute;
+    left: 4%;
+    bottom: 6%;
+    z-index: 3;
+    background: var(--ag-forest);
+    color: #fff;
+    border-radius: 18px;
+    padding: 14px 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    span { display: block; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); font-weight: 600; }
+    b { font-size: 17px; color: var(--ag-lime); }
+    .is-dark & { background: #fff; span { color: var(--ag-muted); } b { color: var(--ag-forest); } }
+}
+
+/* ------------------------------ PRODUCTS ----------------------------- */
+.ag-products { background: var(--ag-cream); }
+.ag-prod-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 28px;
+    @media (max-width: 991px) { grid-template-columns: repeat(2, 1fr); gap: 30px 18px; }
+}
+.ag-prod {
+    &.is-hidden { display: none; }
+    .ag-prod-plate {
+        position: relative;
+        background: #fff;
+        border-radius: 28px;
+        aspect-ratio: 1 / 0.92;
+        display: grid;
+        place-items: center;
+        padding: 14%;
+        box-shadow: 0 0 0 1px var(--ag-line);
+        transition: box-shadow 0.5s var(--ag-ease-out);
+        transform-style: preserve-3d;
+        img { max-height: 100%; width: auto; max-width: 100%; object-fit: contain; transition: transform 0.8s var(--ag-ease-out); }
+    }
+    .ag-prod-cat {
+        position: absolute; top: 18px; left: 18px;
+        padding: 6px 12px; border-radius: 20px;
+        background: var(--ag-cream); color: var(--ag-forest);
+        font-size: 12px; font-weight: 700;
+        @media (max-width: 575px) { display: none; }
+    }
+    .ag-prod-markets {
+        position: absolute; top: 18px; right: 18px; display: flex; gap: 4px;
+        i { font-style: normal; font-size: 11px; font-weight: 700; padding: 5px 8px; border-radius: 20px; background: var(--ag-forest); color: #fff; }
+        @media (max-width: 575px) { top: 10px; right: 10px; }
+    }
+    .ag-prod-body { padding: 22px 6px 0; }
+    .ag-prod-brand { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ag-forest-3); }
+    h4 { font-size: clamp(18px, 1.6vw, 24px); font-weight: 600; margin: 6px 0 8px; color: var(--ag-forest); }
+    p { font-size: 15px; color: var(--ag-muted); line-height: 1.5; }
+    &:hover {
+        .ag-prod-plate { box-shadow: 0 0 0 2px var(--ag-lime), 0 30px 60px rgba(10, 34, 29, 0.12); }
+        img { transform: scale(1.08) rotate(-3deg) translateZ(40px); }
+    }
+}
+.ag-prod-cta {
+    margin-top: 70px;
+    padding: 34px 40px;
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: 0 0 0 1px var(--ag-line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    p { font-size: 18px; color: var(--ag-muted); max-width: 520px; b { color: var(--ag-forest); } }
+}

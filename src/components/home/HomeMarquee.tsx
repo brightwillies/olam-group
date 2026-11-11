@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { commodities } from "@/data/site-data";
+import { marqueeItems } from "@/data/site-data";
 import { Sprig } from "../ui/Icons";
 import { gsap, ScrollTrigger, useAgriAnim } from "../ui/anim";
 
@@ -26,12 +26,12 @@ const HomeMarquee = () => {
         gsap.from(ref.current, { autoAlpha: 0, duration: 1.2, scrollTrigger: { trigger: ref.current, start: "top 90%", once: true } });
     });
 
-    const items = [...commodities, ...commodities];
+    const items = [...marqueeItems, ...marqueeItems];
     return (
-        <section className="ag-marquee" ref={ref} aria-label="Commodities we work with">
+        <section className="ag-marquee" ref={ref} aria-label="Our brands">
             <div className="ag-marquee-track">
                 {items.map((c, i) => (
-                    <div className="ag-marquee-item" key={i} aria-hidden={i >= commodities.length}>
+                    <div className="ag-marquee-item" key={i} aria-hidden={i >= marqueeItems.length}>
                         <span>{c}</span>
                         <Sprig />
                     </div>

@@ -7,7 +7,7 @@ import { gsap, onSiteReady, prefersReduced } from "./anim";
 type Props = { label: string; title: string[]; desc: string; badge?: string; badgeHref?: string };
 
 /** Inner-page hero: breadcrumb, two-line masked title (second line italic lime), intro on site ready. */
-const PageHero = ({ label, title, desc, badge = "Scroll to explore • Olam Group • ", badgeHref = "#content" }: Props) => {
+const PageHero = ({ label, title, desc, badge = "Scroll to explore • Caraway Africa • ", badgeHref = "#content" }: Props) => {
     const ref = useRef<HTMLElement>(null);
 
     useEffect(() => {

@@ -1,25 +1,25 @@
 /* =====================================================================
    SITE CONTENT: edit everything for Home / About / Contact here.
-   Items marked "VERIFY" are placeholders to confirm with Olam Group
-   before going live (emails, office addresses, leadership, figures).
+   Items marked "VERIFY" are placeholders to confirm with Caraway Africa
+   before going live (links, emails, product facts, market availability).
    Images live in /public/images; replace the files keeping the names.
    ===================================================================== */
 
 export const brand = {
-    name: "Olam",
-    fullName: "Olam Group",
-    /** Official logo (dark text for light backgrounds) and a white-text version for dark backgrounds.
-     *  Swap for SVG files when available for sharper rendering. */
-    logo: "/images/olam-logo.png",
-    logoWhite: "/images/olam-logo-white.png",
-    logoMark: "/images/olam-mark.png",
-    tagline: "Re-imagining global agriculture and food systems",
+    name: "Caraway",
+    fullName: "Caraway Africa",
+    /** Logo files. Leave empty to use the text logo; when the real logo arrives, set e.g.
+     *  logo: "/images/caraway-logo.svg", logoWhite: "/images/caraway-logo-white.svg", logoMark: "/images/caraway-mark.svg" */
+    logo: "",
+    logoWhite: "",
+    logoMark: "",
+    tagline: "Good food, rooted in Africa",
     founded: 1989,
-    email: "info@olamgroup.com", // VERIFY
-    phone: "+65 6339 4100", // VERIFY
-    address: ["7 Straits View, Marina One East Tower", "#20-01, Singapore 018936"], // VERIFY
-    hours: "Mon – Fri, 9:00am – 6:00pm (SGT)",
-    regNo: "Co. Reg. No. 202180000W",
+    email: "info@caraway.africa", // VERIFY
+    phone: "+233 00 000 0000", // VERIFY
+    address: ["Accra, Ghana", "Lagos, Nigeria"], // VERIFY
+    hours: "Mon – Fri, 8:00am – 5:00pm (GMT)", // VERIFY
+    regNo: "",
     social: [
         { label: "LinkedIn", icon: "linkedin", href: "#" },
         { label: "X", icon: "x", href: "#" },
@@ -28,28 +28,56 @@ export const brand = {
     ] as const,
 };
 
+/**
+ * Country websites. PASTE THE REAL URLS HERE when they're ready.
+ * While a url is empty, the navbar link scrolls to that market's section on the homepage
+ * and the section button shows "Coming soon".
+ */
+export const marketSites = {
+    ghana: { label: "Ghana", url: "" }, // e.g. "https://gh.caraway.africa"
+    nigeria: { label: "Nigeria", url: "" }, // e.g. "https://ng.caraway.africa"
+};
+
 const IMG = "/images";
+const P = `${IMG}/products`;
 export const images = {
     hero1: `${IMG}/hero-1.jpg`,
     hero2: `${IMG}/hero-2.jpg`,
     hero3: `${IMG}/hero-3.jpg`,
     intro: `${IMG}/intro.jpg`,
-    business1: `${IMG}/business-1.jpg`,
-    business2: `${IMG}/business-2.jpg`,
-    business3: `${IMG}/business-3.jpg`,
-    feature1: `${IMG}/feature-1.jpg`,
-    feature2: `${IMG}/feature-2.jpg`,
-    feature3: `${IMG}/feature-3.jpg`,
-    news1: `${IMG}/news-1.jpg`,
-    news2: `${IMG}/news-2.jpg`,
-    news3: `${IMG}/news-3.jpg`,
-    news4: `${IMG}/news-4.jpg`,
     aboutHero: `${IMG}/about-hero.jpg`,
     aboutWho: `${IMG}/about-who.jpg`,
     map: `${IMG}/world-map.png`,
 };
 
-export const mainNav = [
+/* ----------------------------- PRODUCTS --------------------------- */
+
+export type ProductCategory = "Biscuits & Snacks" | "Drinks" | "Cooking";
+export type Market = "Ghana" | "Nigeria";
+
+export type Product = {
+    id: string;
+    name: string;
+    brand: string;
+    category: ProductCategory;
+    desc: string;
+    img: string;
+    markets: Market[]; // VERIFY availability per market
+};
+
+/** VERIFY: product names, descriptions and market availability with Caraway. */
+export const products: Product[] = [
+    { id: "tasty-tom", name: "Tasty Tom Tomato Mix", brand: "Tasty Tom", category: "Cooking", desc: "Rich tomato mix for jollof, stews and sauces.", img: `${P}/tasty-tom.png`, markets: ["Ghana", "Nigeria"] },
+    { id: "nutrisnax", name: "NutriSnax Oats Digestive", brand: "NutriSnax", category: "Biscuits & Snacks", desc: "Oat digestive biscuits, high in fibre.", img: `${P}/nutrisnax-oats-digestive.jpg`, markets: ["Ghana", "Nigeria"] },
+    { id: "nutri-c", name: "Nutri-C Sweet Mango", brand: "Nutri-C", category: "Drinks", desc: "Instant mango-flavoured drink powder. Just add water.", img: `${P}/nutri-c.jpg`, markets: ["Ghana", "Nigeria"] },
+    { id: "perk-choco", name: "Perk! Choco Shortcake", brand: "Perk!", category: "Biscuits & Snacks", desc: "Chocolate shortcake biscuits for every break.", img: `${P}/perk-choco.png`, markets: ["Ghana", "Nigeria"] },
+    { id: "nutri-choco", name: "Nutri Choco", brand: "Nutri Choco", category: "Drinks", desc: "Chocolate-flavoured milk drink, ready to enjoy.", img: `${P}/nutri-choco.jpg`, markets: ["Ghana", "Nigeria"] },
+    { id: "king-cracker", name: "King Cracker Deluxe", brand: "King Cracker", category: "Biscuits & Snacks", desc: "Light, crunchy crackers for snacking and sharing.", img: `${P}/king-cracker.jpg`, markets: ["Ghana", "Nigeria"] },
+];
+
+const byId = (id: string) => products.find((p) => p.id === id)!;
+
+export const mainNav: { label: string; href: string; external?: boolean; market?: keyof typeof marketSites; children?: { label: string; href: string }[] }[] = [
     { label: "Home", href: "/" },
     {
         label: "About Us",
@@ -61,9 +89,9 @@ export const mainNav = [
             { label: "Our Leadership", href: "/about#leadership" },
         ],
     },
-    // { label: "Our Businesses", href: "/#businesses" },
-    // { label: "Sustainability", href: "/#sustainability" },
-    // { label: "News", href: "/#news" },
+    { label: "Products", href: "/#products" },
+    { label: "Ghana", href: "/#ghana", market: "ghana" },
+    { label: "Nigeria", href: "/#nigeria", market: "nigeria" },
     { label: "Contact", href: "/contact" },
 ];
 
@@ -71,118 +99,84 @@ export const mainNav = [
 
 export const heroSlides = [
     {
-        eyebrow: "Since 1989",
-        title: ["Re-imagining", "global agriculture"],
-        desc: "We explore, grow, source and process the food ingredients and agricultural commodities the world depends on.",
-        cta: { label: "Explore Our Businesses", href: "/#businesses" },
+        eyebrow: "Caraway Africa",
+        title: ["Good food,", "rooted in Africa"],
+        desc: "Everyday foods and drinks made for the tables of Ghana, Nigeria and beyond.",
+        cta: { label: "Explore Our Products", href: "/#products" },
         tab: "Who we are",
         img: images.hero1,
+        products: [byId("tasty-tom"), byId("nutri-c"), byId("king-cracker")],
     },
     {
-        eyebrow: "Sustainability",
-        title: ["Caring for the", "communities we serve"],
-        desc: "Working alongside farmers and communities to build livelihoods, protect landscapes and secure the future of food.",
-        cta: { label: "Our Commitments", href: "/#sustainability" },
-        tab: "Our purpose",
+        eyebrow: "Caraway Ghana",
+        title: ["A little inspiration,", "a lot of flavour"],
+        desc: "Discover the products, recipes and ideas behind the meals Ghana loves.",
+        cta: { label: "Discover Ghana", href: "/#ghana" },
+        tab: "Ghana",
         img: images.hero2,
+        products: [byId("perk-choco"), byId("nutri-choco"), byId("tasty-tom")],
     },
     {
-        eyebrow: "2025 Annual Report",
-        title: ["From vision", "to value"],
-        desc: "Read the highlights of our year, or download the full annual report.",
-        cta: { label: "View Our Reports", href: "/#report" },
-        tab: "Annual report",
+        eyebrow: "Caraway Nigeria",
+        title: ["A portfolio built", "for every day"],
+        desc: "Explore our brands, or partner with our trade team to bring them to more shelves.",
+        cta: { label: "Discover Nigeria", href: "/#nigeria" },
+        tab: "Nigeria",
         img: images.hero3,
+        products: [byId("nutrisnax"), byId("perk-choco"), byId("nutri-c")],
     },
 ];
 
 export const intro = {
     label: "Who we are",
     statement:
-        "We are re-imagining global agriculture: working with cocoa farmers in Africa, growing almonds in Australia and developing ingredients in Asia, so our customers can meet rising demand for sustainable sourcing and healthier food.",
+        "Caraway makes everyday food moments matter. From tomato mix for Sunday jollof to biscuits for the school bag, our brands are made for African kitchens and the people who gather around them.",
     cta: { label: "Find Out More About Us", href: "/about" },
 };
 
+/** VERIFY: swap in real figures when available. */
 export const stats = [
-    { value: 1989, suffix: "", label: "Established", note: "More than three decades of growth", plain: true },
-    { value: 50, suffix: "+", label: "Countries", note: "Operations across five continents" },
-    { value: 11000, suffix: "+", label: "Customers", note: "From large multinationals to small family businesses" },
-    { value: 2, suffix: "M+", label: "Farmers", note: "In our global sourcing network" }, // VERIFY
+    { value: 2, suffix: "", label: "Markets", note: "Ghana and Nigeria, each with its own local site", plain: false },
+    { value: 6, suffix: "+", label: "Everyday brands", note: "Across cooking, snacks and drinks", plain: false },
+    { value: 3, suffix: "", label: "Categories", note: "Biscuits & snacks, drinks and cooking", plain: false },
 ];
 
-export const commodities = ["Cocoa", "Coffee", "Nuts", "Spices", "Dairy", "Grains", "Rice", "Cotton", "Edible Oils", "Animal Feed"];
+export const marqueeItems = ["Tasty Tom", "NutriSnax", "Nutri-C", "Perk!", "Nutri Choco", "King Cracker"];
 
-export const businesses = [
-    {
-        no: "01",
-        title: "ofi",
-        sub: "olam food ingredients",
-        desc: "Natural, value-added food and beverage ingredients (cocoa, coffee, dairy, nuts and spices) that help customers create healthier, more sustainable products.",
-        tags: ["Cocoa", "Coffee", "Dairy", "Nuts", "Spices"],
-        img: images.business1,
-        href: "/about",
+export const markets = {
+    ghana: {
+        id: "ghana",
+        label: "Caraway Ghana",
+        eyebrow: "Made for everyday moments",
+        title: ["A little inspiration.", "A lot of flavour."],
+        desc: "Our Ghana site is built for home cooks and families: explore our products, find recipes for the dishes you love and see where to buy near you.",
+        features: [
+            { title: "Products", desc: "Product facts and pack sizes" },
+            { title: "Recipes & inspiration", desc: "Ideas for everyday meals" },
+            { title: "Our Ghana story", desc: "The people behind our brands" },
+            { title: "Where to buy", desc: "Find a store near you" },
+        ],
+        cta: "Visit Caraway Ghana",
+        products: [byId("tasty-tom"), byId("nutri-c"), byId("king-cracker")], // VERIFY Ghana line-up
+        flag: ["#ce1126", "#fcd116", "#006b3f"],
     },
-    {
-        no: "02",
-        title: "Olam Agri",
-        sub: "food, feed & fibre",
-        desc: "A market-leading food, feed and fibre agri-business connecting producing and consuming nations across grains, edible oils, rice and cotton.",
-        tags: ["Grains", "Edible Oils", "Rice", "Cotton"],
-        img: images.business2,
-        href: "/about",
+    nigeria: {
+        id: "nigeria",
+        label: "Caraway Nigeria",
+        eyebrow: "Good food. Strong partnerships.",
+        title: ["A portfolio built", "for every day."],
+        desc: "Our Nigeria site brings our full range together for shoppers, retailers and distributors, with recipes, retailer finder and a direct line to our trade team.",
+        features: [
+            { title: "Products & brands", desc: "Browse by category or need" },
+            { title: "Recipes & usage ideas", desc: "Ideas for the table" },
+            { title: "Find a retailer", desc: "Stockists across Nigeria" },
+            { title: "Trade enquiries", desc: "Become a distributor or retailer" },
+        ],
+        cta: "Visit Caraway Nigeria",
+        products: [byId("nutrisnax"), byId("perk-choco"), byId("nutri-choco")], // VERIFY Nigeria line-up
+        flag: ["#008751", "#ffffff", "#008751"],
     },
-    {
-        no: "03",
-        title: "Olam Global Holdings",
-        sub: "OGH",
-        desc: "Holds the Group's other businesses and assets, and incubates new platforms for the future of food and agriculture.",  // VERIFY description
-        tags: ["Holdings", "New ventures"],
-        img: images.business3,
-        href: "/about",
-    },
-];
-
-export const features = [
-    {
-        id: "reorganisation",
-        label: "Strategy",
-        title: "Re-organising to deliver sharper focus and value",
-        desc: "We are separating the Group into focused operating groups (ofi, Olam Agri and OGH), each with its own strategy, capital structure and leadership, to unlock long-term value for shareholders.",
-        cta: { label: "Read More", href: "/about" },
-        img: images.feature1,
-    },
-    {
-        id: "sustainability",
-        label: "Sustainability",
-        title: "Caring for the communities that we work with",
-        desc: "Sustainability is part of every decision we make, from farmer training and fair pricing to traceable supply chains and protecting the landscapes we source from.",
-        cta: { label: "Read More", href: "/about#purpose" },
-        img: images.feature2,
-    },
-    {
-        id: "careers",
-        label: "Careers",
-        title: "A future at Olam: imagine the extraordinary",
-        desc: "Join a global team where you get the autonomy to lead early and the opportunity to make a real impact on how the world grows and eats.",
-        cta: { label: "Read More", href: "/contact" },
-        img: images.feature3,
-    },
-];
-
-export const report = {
-    label: "2025 Annual Report",
-    desc: "Read the highlights of our year or download the full annual report.",
-    cta: { label: "View Our Reports", href: "#" },
 };
-
-export const news = [
-    { date: "24 Sep 2026", cat: "Press Release", title: "ofi prices US$300 million Perpetual Hybrid Capital Instrument", img: images.news1 },
-    { date: "31 Aug 2026", cat: "Press Release", title: "ofi issues US$100 million 5-year notes via private placement", img: images.news2 },
-    { date: "22 Aug 2025", cat: "Governance", title: "Olam Group improves governance ranking with SGTI score of 81.8", img: images.news3 },
-    { date: "2023", cat: "Blog", title: "Protecting forests: conservation in the Congo Basin", img: images.news4 },
-];
-
-export const subscribeTopics = ["Press Releases", "Financial Results", "Sustainability", "Events"];
 
 /* ------------------------------ ABOUT ----------------------------- */
 
@@ -305,3 +299,9 @@ export const faqs = [
     { q: "How do I raise a grievance about our supply chain?", a: "Choose 'Grievance' as the enquiry type. Grievances are logged, investigated and tracked through to resolution." },
     { q: "Do you offer internships or graduate programmes?", a: "Select 'Careers' in the form or email our careers team to find out about current openings across our operating countries." },
 ];
+
+/** Where a market link should go: the country website if set, otherwise its homepage section. */
+export const marketLink = (m: keyof typeof marketSites) => {
+    const url = marketSites[m].url;
+    return url ? { href: url, external: true } : { href: `/#${m}`, external: false };
+};

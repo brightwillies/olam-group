@@ -16,7 +16,7 @@ const HomeIntro = () => (
                     <p className="ag-intro-statement ag-fill-text" data-ag-fill="#10302a">{intro.statement}</p>
                     <div className="ag-intro-foot" data-ag-fade="">
                         <AgButton href={intro.cta.href} variant="dark">{intro.cta.label}</AgButton>
-                        <a href="#businesses" className="ag-link" style={{ color: "var(--ag-forest)" }}>Explore our businesses</a>
+                        <a href="#products" className="ag-link" style={{ color: "var(--ag-forest)" }}>See our products</a>
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
     return (
         <main>
-            <PageHero label={aboutHero.label} title={aboutHero.title} desc={aboutHero.desc} badge="Our story • Since 1989 • Olam Group • " />
+            <PageHero label={aboutHero.label} title={aboutHero.title} desc={aboutHero.desc} badge="Our story • Caraway Africa • Good food • " />
             <WideMedia src={images.aboutHero} alt="Close-up of a flowering plant" />
             <AboutWho />
             <AboutPurpose />
