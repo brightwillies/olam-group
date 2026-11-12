@@ -42,8 +42,6 @@ const IMG = "/images";
 const P = `${IMG}/products`;
 export const images = {
     hero1: `${IMG}/hero-1.jpg`,
-    hero2: `${IMG}/hero-2.jpg`,
-    hero3: `${IMG}/hero-3.jpg`,
     intro: `${IMG}/intro.jpg`,
     aboutHero: `${IMG}/about-hero.jpg`,
     aboutWho: `${IMG}/about-who.jpg`,
@@ -97,8 +95,25 @@ export const mainNav: { label: string; href: string; external?: boolean; market?
 
 /* ------------------------------ HOME ------------------------------ */
 
-export const heroSlides = [
+/**
+ * Hero slides. Slide 1 is a photo slide; slides 2 and 3 replicate the Ghana and Nigeria
+ * section designs and take their text, products and flag from `markets` further down.
+ */
+type PhotoSlide = {
+    kind: "photo";
+    eyebrow: string;
+    title: string[];
+    desc: string;
+    cta: { label: string; href: string };
+    tab: string;
+    img: string;
+    products: Product[];
+};
+type MarketSlide = { kind: "market"; market: "ghana" | "nigeria"; tab: string };
+
+export const heroSlides: (PhotoSlide | MarketSlide)[] = [
     {
+        kind: "photo",
         eyebrow: "Caraway Africa",
         title: ["Good food,", "rooted in Africa"],
         desc: "Everyday foods and drinks made for the tables of Ghana, Nigeria and beyond.",
@@ -107,24 +122,8 @@ export const heroSlides = [
         img: images.hero1,
         products: [byId("tasty-tom"), byId("nutri-c"), byId("king-cracker")],
     },
-    {
-        eyebrow: "Caraway Ghana",
-        title: ["A little inspiration,", "a lot of flavour"],
-        desc: "Discover the products, recipes and ideas behind the meals Ghana loves.",
-        cta: { label: "Discover Ghana", href: "/#ghana" },
-        tab: "Ghana",
-        img: images.hero2,
-        products: [byId("perk-choco"), byId("nutri-choco"), byId("tasty-tom")],
-    },
-    {
-        eyebrow: "Caraway Nigeria",
-        title: ["A portfolio built", "for every day"],
-        desc: "Explore our brands, or partner with our trade team to bring them to more shelves.",
-        cta: { label: "Discover Nigeria", href: "/#nigeria" },
-        tab: "Nigeria",
-        img: images.hero3,
-        products: [byId("nutrisnax"), byId("perk-choco"), byId("nutri-c")],
-    },
+    { kind: "market", market: "ghana", tab: "Ghana" },
+    { kind: "market", market: "nigeria", tab: "Nigeria" },
 ];
 
 export const intro = {

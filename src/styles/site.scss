@@ -1885,3 +1885,96 @@ body.ag-body {
     flex-wrap: wrap;
     p { font-size: 18px; color: var(--ag-muted); max-width: 520px; b { color: var(--ag-forest); } }
 }
+
+/* ---------------- HERO MARKET SLIDES (Ghana / Nigeria) ---------------- */
+.ag-hero-bg.is-solid::after { display: none; }
+.ag-hs.is-light .ag-hero-bg { background: var(--ag-sand); }
+.ag-hs.is-dark .ag-hero-bg { background: var(--ag-forest); }
+.ag-hs-word {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: clamp(160px, 26vw, 460px);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    line-height: 0.8;
+    white-space: nowrap;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(16, 48, 42, 0.1);
+    pointer-events: none;
+    user-select: none;
+    .is-dark & { -webkit-text-stroke-color: rgba(255, 255, 255, 0.07); }
+}
+.ag-hs {
+    .ag-hero-content { padding-top: 96px; padding-bottom: 110px; }
+    .ag-hs-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: clamp(30px, 5vw, 90px);
+        align-items: center;
+    }
+    &.is-dark .ag-hs-text { order: 2; }
+    .ag-hs-flag {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 22px;
+        i { display: block; width: 34px; height: 6px; border-radius: 6px; }
+    }
+    .ag-hero-title {
+        font-size: clamp(40px, 5.2vw, 96px);
+        max-width: none;
+        margin: 18px 0 22px;
+    }
+    .ag-hero-desc { margin-bottom: 30px; }
+    .ag-btn-row { align-items: center; gap: 22px; }
+    .ag-hs-visual {
+        height: min(64vh, 620px);
+        width: auto;
+        max-width: 100%;
+        justify-self: center;
+    }
+    &.is-light {
+        color: var(--ag-forest);
+        .ag-hero-title .ag-hl:nth-child(2) > span { color: var(--ag-forest); }
+        .ag-hero-desc { color: var(--ag-muted); }
+        .ag-label { color: var(--ag-muted); }
+        .ag-link { color: var(--ag-forest); }
+    }
+}
+@media (max-width: 991px) {
+    .ag-hs {
+        .ag-hero-content { padding-top: 84px; padding-bottom: 96px; justify-content: flex-start; }
+        .ag-hs-grid { grid-template-columns: 1fr; gap: 6px; }
+        &.is-dark .ag-hs-text { order: 0; }
+        .ag-hs-visual { order: 1; height: 34vh; min-height: 230px; }
+        .ag-hs-flag { margin-bottom: 14px; }
+        .ag-hero-title { margin: 12px 0 14px; }
+        .ag-mk-badge { padding: 10px 14px; b { font-size: 14px; } }
+    }
+}
+@media (max-width: 575px) {
+    .ag-hs {
+        .ag-hero-desc { display: none; }
+        .ag-hs-secondary { display: none; }
+        .ag-hero-title { font-size: clamp(34px, 10vw, 44px); }
+        .ag-label { font-size: 11px; }
+    }
+}
+
+/* slider controls + header turn dark while the light Ghana slide is showing */
+.ag-hero-side { color: #fff; transition: color 0.5s; }
+.ag-hero.is-light-slide {
+    .ag-hero-side { color: var(--ag-forest); }
+    .ag-hero-counter { color: rgba(16, 48, 42, 0.55); .ag-hero-counter-current { color: var(--ag-forest); } }
+    .ag-scroll-cue { border-color: rgba(16, 48, 42, 0.45); }
+    .ag-hero-tabs {
+        button { color: rgba(16, 48, 42, 0.55); b { color: var(--ag-forest-3); } &.is-active, &:hover { color: var(--ag-forest); } }
+        .ag-hero-progress { background: rgba(16, 48, 42, 0.15); i { background: var(--ag-forest); } }
+    }
+}
+.ag-hero-tabs button, .ag-hero-counter, .ag-scroll-cue { transition: color 0.5s, border-color 0.5s; }
+body.ag-hero-light .ag-header:not(.is-scrolled):not(.is-menu-open) {
+    color: var(--ag-forest);
+    .ag-burger span { background: var(--ag-forest); }
+}
