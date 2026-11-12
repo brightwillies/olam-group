@@ -16,7 +16,7 @@ const company = [
 ];
 const explore = [
     { label: "Our Products", href: "/#products" },
-    { label: "Caraway Ghana", href: marketLink("ghana").href },
+    { label: "Nutrifoods Ghana", href: marketLink("ghana").href },
     { label: "Caraway Nigeria", href: marketLink("nigeria").href },
     { label: "Trade Enquiries", href: "/contact" },
 ];

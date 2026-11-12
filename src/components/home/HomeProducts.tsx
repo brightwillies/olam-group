@@ -116,7 +116,7 @@ const HomeProducts = () => {
                 <div className="ag-prod-cta" data-ag-fade="">
                     <p>Looking for recipes, pack sizes or where to buy? <b>Visit your local Caraway site.</b></p>
                     <div className="ag-btn-row">
-                        <AgButton href={gh.href} external={gh.external} variant="dark">Caraway Ghana</AgButton>
+                        <AgButton href={gh.href} external={gh.external} variant="dark">Nutrifoods Ghana</AgButton>
                         <AgButton href={ng.href} external={ng.external} variant="dark">Caraway Nigeria</AgButton>
                     </div>
                 </div>

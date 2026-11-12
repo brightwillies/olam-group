@@ -145,7 +145,7 @@ export const marqueeItems = ["Tasty Tom", "NutriSnax", "Nutri-C", "Perk!", "Nutr
 export const markets = {
     ghana: {
         id: "ghana",
-        label: "Caraway Ghana",
+        label: "Nutrifoods Ghana",
         eyebrow: "Made for everyday moments",
         title: ["A little inspiration.", "A lot of flavour."],
         desc: "Our Ghana site is built for home cooks and families: explore our products, find recipes for the dishes you love and see where to buy near you.",
@@ -155,7 +155,7 @@ export const markets = {
             { title: "Our Ghana story", desc: "The people behind our brands" },
             { title: "Where to buy", desc: "Find a store near you" },
         ],
-        cta: "Visit Caraway Ghana",
+        cta: "Visit Nutrifoods Ghana",
         products: [byId("tasty-tom"), byId("nutri-c"), byId("king-cracker")], // VERIFY Ghana line-up
         flag: ["#ce1126", "#fcd116", "#006b3f"],
     },
